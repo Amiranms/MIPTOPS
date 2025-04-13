@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  drogonhttp:
+    build: .
+    ports:
+      - "8848:8848"
+    environment:
+      APP_ADDRESS: "0.0.0.0"
+      APP_PORT: "8848"

@@ -26,10 +26,6 @@ RUN mkdir build && cd build && \
 FROM alpine:3.21
 
 RUN apk update && \
-    apk add --no-cache libstdc++ && \
-    rm -rf /var/cache/apk/*
-
-RUN apk update && \
     apk add --no-cache \
         libstdc++ \
         jsoncpp \
@@ -38,9 +34,25 @@ RUN apk update && \
         util-linux && \
     rm -rf /var/cache/apk/*
 
-    
+
 COPY --from=builder /drogon/build/examples/helloworld/ /app/helloworld/
+
+COPY entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
 
 EXPOSE 8848
 
-CMD [ "/app/helloworld/helloworld" ]
+
+RUN mkdir -p /app/uploads/tmp && \
+    chown -R root:root /app/uploads && \
+    chmod -R 775 /app/uploads && \
+    adduser -D appuser && \
+    chown -R appuser:appuser /app
+
+WORKDIR /app
+
+
+USER appuser
+
+
+CMD [ "/app/entrypoint.sh" ]
