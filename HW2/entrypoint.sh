@@ -7,10 +7,6 @@ while ! nc -z postgres $DB_PORT; do
   sleep 2
 done
 
-if [ -n "$PERMISSIONS_JSON" ]; then
-    echo "$PERMISSIONS_JSON" > /app/listmonk/permissions.json
-fi
-
 
 cd /app/listmonk 
 

@@ -18,7 +18,7 @@ COPY ./config.toml /app/listmonk/config.tmpl
 COPY entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
 
-RUN ls -la listmonk
+
 RUN chmod 755 /app/listmonk/listmonk 
 
 RUN adduser -D listmonk && chown -R listmonk:listmonk /app
@@ -28,4 +28,3 @@ EXPOSE 9000
 USER listmonk
 
 ENTRYPOINT [ "/app/entrypoint.sh" ]
-CMD [ "/app/listmonk/listmonk" ]
