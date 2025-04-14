@@ -1,0 +1,31 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:13-alpine3.20
+    env_file:
+      - ./postgres.env
+    volumes:
+      - postgres_data_multistage:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U listmonk -d listmonk"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    
+  listmonk:
+    build: .
+    depends_on:
+      - postgres
+    volumes:
+      - ./listmonk/static:/app/listmonk/static
+    env_file:
+      - ./listmonk.env
+    ports:
+      - "9000:9000"
+
+volumes:
+  postgres_data_multistage:

@@ -1,0 +1,14 @@
+[app]
+address = "${APP_ADDRESS}"  
+
+[db]
+host = "${DB_HOST}"         
+port = ${DB_PORT}           
+user = "${DB_USER}"         
+password = "${DB_PASSWORD}" 
+database = "${DB_NAME}"     
+ssl_mode = "${DB_SSL_MODE}" 
+max_open = ${DB_MAX_OPEN}   
+max_idle = ${DB_MAX_IDLE}   
+max_lifetime = "${DB_MAX_LIFETIME}"
+
